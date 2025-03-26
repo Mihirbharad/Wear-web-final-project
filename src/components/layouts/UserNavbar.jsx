@@ -102,19 +102,22 @@ export const UserNavbar = () => {
       <nav className="app-header navbar navbar-expand bg-body">
         <div className="container-fluid">
           <ul className="navbar-nav">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" data-lte-toggle="sidebar" href="#" role="button">
                 <i className="bi bi-list" />
               </a>
+            </li> */}
+            <li className="nav-item d-none d-md-block">
+              <Link to="order" className="nav-link">Buy Product</Link>
             </li>
             <li className="nav-item d-none d-md-block">
-              <Link to="home" className="nav-link">Home</Link>
+              <Link to="myorder" className="nav-link">My Orders</Link>   
             </li>
             <li className="nav-item d-none d-md-block">
-              <a href="#" className="nav-link">Contact Us</a>
+              <Link to="contact" className="nav-link">Contact Us</Link>
             </li>
             <li className="nav-item d-none d-md-block">
-              <a href="#" className="nav-link">Review</a>   
+              <Link to="review" className="nav-link">Review</Link>   
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">

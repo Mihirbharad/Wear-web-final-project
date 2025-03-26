@@ -1,6 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import image1 from "./../../assets/img/pant.jpg"
+import image2 from "./../../assets/img/sweatshirt.jpg"
+import image3 from "./../../assets/img/shoes.webp"
+
 
 const LandPage = () => {
   return (
@@ -11,10 +15,10 @@ const LandPage = () => {
           <li><a href="#features" className="hover:text-[#f8e1a1] transition duration-300">Features</a></li>
           <li><a href="#testimonials" className="hover:text-[#f8e1a1] transition duration-300">Testimonials</a></li>
           <li><a href="#gallery" className="hover:text-[#f8e1a1] transition duration-300">Gallery</a></li>
-          <li><a href="#contact" className="hover:text-[#f8e1a1] transition duration-300">Contact</a></li>
+          <li><Link to="/contact" className  ="hover:text-[#f8e1a1] transition duration-300">Contact</Link></li>
           <li>
             <Link 
-              to="/login" 
+              to="/signup  " 
               className="px-4 py-2 bg-[#ff9800] text-black rounded-full font-bold text-sm transition duration-300 border-2 border-white hover:bg-[#f57c00]"
             >
               Register
@@ -45,13 +49,20 @@ const LandPage = () => {
       </section>
 
       <section id="gallery" className="py-16">
-        <h2 className="text-3xl font-bold">Gallery</h2>
-        <div className="flex justify-center gap-8 mt-6">
-          {["gallery1.jpg", "gallery2.jpg", "gallery3.jpg"].map((img, index) => (
-            <motion.img key={index} src={img} alt="Gallery Item" className="w-60 h-44 rounded-lg border-4 border-[#12AC17] shadow-xl hover:scale-105 transition duration-300" />
-          ))}
-        </div>
-      </section>
+  <h2 className="text-3xl font-bold">Gallery</h2>
+  <div className="flex justify-center gap-8 mt-6">
+    {[`${image1}`, `${image2}`,`${image3}`].map((img, index) => (
+      <motion.img 
+        key={index} 
+        src={img} 
+        alt="Gallery Item" 
+        className="w-80 h-80 rounded-lg border-4 border-[#12AC17] shadow-xl hover:scale-105 transition duration-300" 
+      />
+    ))}
+  </div>
+</section>
+
+      
 
       <section id="testimonials" className="py-16">
         <h2 className="text-3xl font-bold">What Our Users Say</h2>
@@ -65,7 +76,7 @@ const LandPage = () => {
           <div>
             <h3 className="text-2xl font-bold">Quick Links</h3>
             <ul className="list-none">
-              <li><a href="#contact" className="hover:text-[#f8e1a1] transition duration-300">Contact</a></li>
+              <li><Link to="/contact" className="hover:text-[#f8e1a1] transition duration-300">Contact</Link></li>
             </ul>
           </div>
           <div>
