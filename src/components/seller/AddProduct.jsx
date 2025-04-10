@@ -3,139 +3,86 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export const AddProduct = () => {
-    const { register, handleSubmit } = useForm();
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
 
-    const submitHandler = async (data) => {
-        data.seller_id = localStorage.getItem('id');
-        data.price = parseFloat(data.price);
-        console.log(data);
-        const res = await axios.post("/create_product", data);
-        console.log(res.data);
-    };
-
-    const getAllCategories = async () => {
-        const res = await axios.get("/getAllCategories");
-        setCategories(res.data);
-    };
-
-    const getSubCategories = async (category_id) => {
-        const res = await axios.get("/getSubCategoryByCategoryId/" + category_id);
-        setSubCategories(res.data);
-    };
-
     useEffect(() => {
+        const getAllCategories = async () => {
+            const res = await axios.get("/getAllCategories");
+            setCategories(res.data);
+        };
         getAllCategories();
     }, []);
 
+    const getSubCategories = async (category_id) => {
+        const res = await axios.get(`/getSubCategoryByCategoryId/${category_id}`);
+        setSubCategories(res.data);
+    };
+
+    const { register, handleSubmit } = useForm();
+    const submitHandler = async (data) => {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('price', data.price);
+        formData.append('category_id', data.category_id);
+        formData.append('sub_category_id', data.sub_category_id);
+        formData.append('image', data.image[0]);
+        formData.append("seller_id", localStorage.getItem('id'));
+
+        const res = await axios.post("/create_product_file", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+        console.log(res.data);
+    };
+
     return (
-        <div style={styles.container}>
-            <div style={styles.card}>
-                <h1 style={styles.title}>Add Product</h1>
-                <form onSubmit={handleSubmit(submitHandler)}>
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Name</label>
-                        <input type='text' {...register('name')} style={styles.input} />
+        <div className="flex justify-center items-center min-h-screen bg-white-50 px-4">
+            <div className="bg-white p-10 rounded-xl shadow-2xl w-full max-w-lg text-center">
+            <h1 style={{ color: 'red', fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Add Product</h1>
+                <form onSubmit={handleSubmit(submitHandler)}className="space-y-5 text-left">
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">Name</label>
+                        <input type='text' {...register('name')} placeholder="Enter product name"
+                            className="w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-600" />
                     </div>
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Price</label>
-                        <input type='number' {...register('price')} style={styles.input} />
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">Price</label>
+                        <input type='number' {...register('price')} placeholder="Enter price"
+                            className="w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-600" />
                     </div>
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Image URL</label>
-                        <input type='text' {...register('image_url')} style={styles.input} />
-                    </div>
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Category</label>
-                        <select {...register("category_id")} onChange={(e) => getSubCategories(e.target.value)} style={styles.select}>
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">Category</label>
+                        <select {...register('category_id')} onChange={(e) => getSubCategories(e.target.value)}
+                            className="w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-600">
                             <option value=''>Select Category</option>
-                            {categories?.map((cat) => (
-                                <option key={cat._id} value={cat._id}>{cat.name}</option>
+                            {categories?.map((category) => (
+                                <option key={category._id} value={category._id}>{category.name}</option>
                             ))}
                         </select>
                     </div>
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Sub Category</label>
-                        <select {...register("sub_category_id")} style={styles.select}>
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">Sub Category</label>
+                        <select {...register('sub_category_id')}
+                            className="w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-600">
                             <option value=''>Select Sub Category</option>
-                            {subCategories?.map((subCat) => (
-                                <option key={subCat._id} value={subCat._id}>{subCat.name}</option>
+                            {subCategories?.map((subCategory) => (
+                                <option key={subCategory._id} value={subCategory._id}>{subCategory.name}</option>
                             ))}
                         </select>
                     </div>
-                    <div style={styles.formGroup}>
-                        <input type='submit' value='Add Product' style={styles.button} />
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">Select File</label>
+                        <input type='file' {...register('image')}
+                            className="w-full p-3 border border-red-300 rounded-lg cursor-pointer" />
+                    </div>
+                    <div>
+                        <input type='submit' value='ADD PRODUCT'
+                            className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg cursor-pointer transition duration-300 text-lg font-semibold" />
                     </div>
                 </form>
             </div>
         </div>
     );
-};
+}
 
-const styles = {
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#0d1117',
-    },
-    card: {
-        backgroundColor: '#1f2937',
-        padding: '30px',
-        borderRadius: '12px',
-        boxShadow: '0px 4px 15px rgba(97, 114, 151, 0.1)',
-        width: '400px',
-        textAlign: 'center',
-        color: 'white',
-    },
-    title: {
-        marginBottom: '20px',
-        fontSize: '24px',
-        color: '#2f3ee1',
-    },
-    formGroup: {
-        marginBottom: '15px',
-        textAlign: 'left',
-    },
-    label: {
-        display: 'block',
-        marginBottom: '5px',
-        fontWeight: 'bold',
-        color: '#d1d5db',
-    },
-    input: {
-        width: '100%',
-        padding: '10px',
-        borderRadius: '5px',
-        border: '1px solid #374151',
-        fontSize: '16px',
-        backgroundColor: '#374151',
-        color: 'white',
-    },
-    select: {
-        width: '100%',
-        padding: '10px',
-        borderRadius: '5px',
-        border: '1px solid #374151',
-        fontSize: '16px',
-        backgroundColor: '#374151',
-        color: 'white',
-    },
-    button: {
-        width: '100%',
-        padding: '12px',
-        borderRadius: '5px',
-        border: 'none',
-        backgroundColor: '#2f3ee1',
-        color: '#1f2937',
-        fontSize: '19px',
-        cursor: 'pointer',
-        transition: 'background 0.3s, transform 0.2s',
-    },
-    buttonHover: {
-        backgroundColor: '#eab308',
-        transform: 'scale(1.05)',
-    }
-};
+export default AddProduct;

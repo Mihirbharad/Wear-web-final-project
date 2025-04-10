@@ -90,7 +90,7 @@ const Dashboard = () => {
             <FontAwesomeIcon icon={faShoppingCart} style={styles.icon} />
             <h5>Recent Orders</h5>
             <p>You have 2 pending deliveries.</p>
-            <Link to="#" style={styles.button} onMouseEnter={(e) => Object.assign(e.target.style, styles.buttonHover)} onMouseLeave={(e) => Object.assign(e.target.style, styles.button)}>
+            <Link to="myorder" style={styles.button} onMouseEnter={(e) => Object.assign(e.target.style, styles.buttonHover)} onMouseLeave={(e) => Object.assign(e.target.style, styles.button)}>
               View Orders
             </Link>
           </div>
@@ -102,7 +102,7 @@ const Dashboard = () => {
             <FontAwesomeIcon icon={faHeart} style={styles.icon} />
             <h5>Wishlist</h5>
             <p>3 items saved for later.</p>
-            <Link to="#" style={styles.button} onMouseEnter={(e) => Object.assign(e.target.style, styles.buttonHover)} onMouseLeave={(e) => Object.assign(e.target.style, styles.button)}>
+            <Link to="wishlist" style={styles.button} onMouseEnter={(e) => Object.assign(e.target.style, styles.buttonHover)} onMouseLeave={(e) => Object.assign(e.target.style, styles.button)}>
               View Wishlist
             </Link>
           </div>

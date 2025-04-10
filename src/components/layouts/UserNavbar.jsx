@@ -134,7 +134,7 @@ export const UserNavbar = () => {
               <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <li><a href="#">Profile</a></li>
                 <li><a href="#">Settings</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><Link to="/">Logout</Link></li>
               </ul>
             </li>
           </ul>

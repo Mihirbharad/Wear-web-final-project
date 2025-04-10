@@ -59,6 +59,13 @@ export const UserSidebar = () => {
                     <i className="nav-arrow bi bi-chevron-right" />
                   </p>
                 </Link>
+                <Link to="product" className="nav-link active">
+                  <i className="nav-icon bi bi-speedometer" />
+                  <p>
+                    Products
+                    <i className="nav-arrow bi bi-chevron-right" />
+                  </p>
+                </Link>
               </li>
               </ul>
               

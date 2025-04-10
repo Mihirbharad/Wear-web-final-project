@@ -21,6 +21,14 @@ import ReviewPage from './components/layouts/ReviewPage'
 import ContactPage from './components/layouts/Contactpage'
 import MyOrderPage from './components/layouts/MyOrderPage'
 import OrderPage from './components/layouts/OrderPage'
+import Wishlist from './components/layouts/Wishlist'
+import ProductDetail from './components/layouts/ProductDetails'
+import ProductDetails from './components/layouts/ProductDetails'
+import { LandingPage } from './components/layouts/LandingPage'
+import ProductPurchasePage from './components/layouts/ProductPurchasePage'
+import MyProducts from './components/seller/MyProduct'
+import ProductDetailPage from './components/seller/ProductDetailsPage'
+// import { Products } from './components/seller/Products'
 
 
 
@@ -42,7 +50,7 @@ function App() {
   return (
     <div
       className={
-        location.pathname === "/login" || location.pathname === "/signup" || location.pathname === '/' || location.pathname === '/contact'
+        location.pathname === "/login" || location.pathname === "/signup" || location.pathname === '/' || location.pathname === '/contact' 
           ? ""
           : "app-wrapper"
      }
@@ -51,21 +59,31 @@ function App() {
         <Route path='/' element={<LandPage/>}></Route>
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/signup' element={<Signup/>}></Route>
-          <Route path='/contact' element={<ContactPage/>}></Route>  
+          <Route path='/contact' element={<ContactPage/>}></Route> 
+          <Route path='/landingpage' element={<LandingPage/>}></Route>
+          
 
           <Route path='/user' element={<UserSidebar/>}>
             <Route path='' element={<Dashboard/>}></Route>
-              {/* <Route path='home' element={<Home/>}></Route> */}
               <Route path='review' element={<ReviewPage/>}></Route>
               <Route path='contact' element={<ContactPage/>}></Route>
               <Route path='myorder' element={<MyOrderPage/>}></Route>
               <Route path='order' element={<OrderPage/>}></Route>
+              {/* <Route path='product' element={<ProductDetails/>}></Route> */}
+              <Route path="product" element={<ProductDetails />} />
+                <Route path="/user/product/purchase" element={<ProductPurchasePage/>} />  
+                <Route path='/user/wishlist' element={<Wishlist />}></Route>
           </Route>
 
           <Route path='/seller' element={<SellerSidebar/>}>
             <Route path='addproduct' element={<AddProduct/>}></Route>
             <Route path='seldashboard' element={<SelDashboard/>}></Route>
-            { <Route path='selhome' element={<SelHome/>}></Route> }
+            <Route path='selhome' element={<SelHome/>}></Route> 
+            <Route path='/seller/review' element={<ReviewPage/>}></Route>
+            <Route path="/seller/product" element={<MyProducts />} />
+            <Route path="/seller/product/purchase" element={<ProductDetailPage />} />
+            
+          
 
           </Route>
 
